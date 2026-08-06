@@ -1,0 +1,68 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+  sampleDays: { dayNumber: number; title: string; timeBlocks: { time: string; activity: string }[] }[];
+}
+
+const { lang = "id", sampleDays } = Astro.props;
+---
+<div class="w-full relative">
+  <!-- Horizontal scroll container -->
+  <div class="flex overflow-x-auto pb-12 snap-x snap-mandatory hide-scrollbar gap-6 px-4 md:px-0">
+    {sampleDays.map((day) => (
+      <div class="snap-center shrink-0 w-[85vw] md:w-[400px] flex flex-col bg-white rounded-3xl overflow-hidden border border-navy/5 shadow-sm">
+        <div class="bg-navy p-6 flex flex-col h-40 justify-end relative overflow-hidden">
+          <div class="absolute inset-0 bg-gold/10 z-0"></div>
+          <div class="relative z-10">
+            <span class="inline-block px-3 py-1 bg-sky/20 text-sky text-sm font-medium rounded-full mb-3">{t(lang, "ui.dayLabel")} {day.dayNumber}</span>
+            <h3 class="font-display text-xl font-bold text-white leading-snug">
+              {day.title.replace(/^Hari \d+: |^Day \d+: /, '')}
+            </h3>
+          </div>
+        </div>
+        
+        <div class="p-6 flex-1 bg-white">
+          <div class="relative pl-6 border-l border-gold/30 space-y-8 py-2">
+            {day.timeBlocks.map((block) => (
+              <div class="relative">
+                <div class="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-gold"></div>
+                <div class="font-body font-bold text-navy mb-1">{block.time}</div>
+                <div class="font-body text-charcoal/80 text-sm leading-relaxed">{block.activity}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-8 text-center max-w-2xl mx-auto border-t border-navy/10 pt-12">
+    <p class="text-lg font-display text-navy mb-4">
+      {lang === "en" ? "Design Your Own Journey" : "Rancang Perjalanan Anda Sendiri"}
+    </p>
+    <p class="text-sm sm:text-base font-body text-charcoal/80 mb-8 px-4">
+      {lang === "en"
+        ? "Want to spend more time at the crater or start a bit later? We tailor every detail so you experience East Java at a relaxed pace."
+        : "Ingin menghabiskan lebih banyak waktu di kawah atau berangkat lebih siang? Kami menyesuaikan setiap detail untuk ritme santai."}
+    </p>
+
+    <WhatsAppCTA
+      label={lang === "en" ? "Customize My Itinerary" : "Kustomisasi Rencana Perjalanan"}
+      message={lang === "en" ? "Hi Yajri Tour, I would like to customize the 4D3N itinerary." : "Halo Yajri Tour, saya ingin menyesuaikan rencana perjalanan 4H3M."}
+      variant="primary"
+    />
+  </div>
+</div>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

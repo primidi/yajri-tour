@@ -1,0 +1,61 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { WHATSAPP_NUMBER } from "../../consts";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+const headline =
+  lang === "en"
+    ? "Ready to Experience East Java at Your Own Pace?"
+    : "Siap Menjelajahi Jawa Timur Tanpa Terburu-buru?";
+const subheadline =
+  lang === "en"
+    ? "Contact us directly on WhatsApp for customized private itineraries, exact pricing, and a relaxed travel experience."
+    : "Hubungi kami via WhatsApp untuk rute privat, harga pasti, dan pengalaman liburan yang santai.";
+const ctaLabel = lang === "en" ? "Chat Directly on WhatsApp" : "Chat Langsung via WhatsApp";
+const message = lang === "en" ? "Hi Yajri Tour, I'd like to book a relaxed East Java tour." : "Halo Yajri Tour, saya ingin memesan tur Jawa Timur.";
+---
+
+<div class="bg-navy py-24 px-4 sm:px-6 lg:px-8 text-offwhite border-t border-navy/50 relative overflow-hidden">
+  <!-- Subtle decorative element -->
+  <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-gold/5 blur-3xl"></div>
+  
+  <div class="mx-auto max-w-4xl text-center relative z-10">
+    <h2 class="font-display text-4xl font-bold text-gold sm:text-5xl md:text-6xl leading-tight">
+      {headline}
+    </h2>
+
+    <p class="mt-6 text-lg sm:text-xl text-offwhite/90 font-body max-w-2xl mx-auto font-light">
+      {subheadline}
+    </p>
+
+    <div class="mt-12 flex flex-col items-center justify-center gap-8">
+      <WhatsAppCTA
+        label={ctaLabel}
+        message={message}
+        variant="primary"
+      />
+
+      <div class="text-sm font-body text-offwhite/70 space-y-2">
+        <p>
+          WhatsApp: <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="text-gold hover:text-white transition-colors font-semibold">+{WHATSAPP_NUMBER}</a>
+        </p>
+        <p class="flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          East Java – Indonesia
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs text-offwhite/40 border-t border-offwhite/10 pt-8 w-full max-w-md">
+        <span class="uppercase tracking-widest text-offwhite/60">{t(lang, "ui.acceptedPayments")}</span>
+        <span class="font-mono text-offwhite/80">Transfer</span>
+        <span class="font-mono text-offwhite/80">Wise</span>
+        <span class="font-mono text-offwhite/80">Cash</span>
+      </div>
+    </div>
+  </div>
+</div>

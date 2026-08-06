@@ -1,0 +1,46 @@
+---
+import { t } from "../../i18n/utils";
+
+interface Props {
+  fleetItems: {
+    type: string;
+    capacity: string;
+    desc: string;
+  }[];
+  lang?: string;
+}
+
+const { fleetItems, lang = "id" } = Astro.props;
+---
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+  {fleetItems.map((item) => (
+    <div class="group bg-white rounded-xl overflow-hidden border-2 border-transparent hover:border-gold/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col h-full">
+      <div class="aspect-4/3 bg-navy/5 flex items-center justify-center p-8 relative overflow-hidden">
+        <!-- Subtle gradient overlay for premium feel -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-navy/5 to-transparent"></div>
+        <span class="text-xs font-bold text-navy/40 uppercase tracking-widest font-body relative z-10">
+          {t(lang, "ui.photoPlaceholder")}
+        </span>
+      </div>
+      <div class="p-8 flex-1 flex flex-col">
+        <div class="mb-4">
+          <span class="inline-flex items-center rounded-full bg-offwhite px-3 py-1 text-xs font-semibold tracking-wide text-navy uppercase font-body border border-navy/10">
+            {item.capacity}
+          </span>
+        </div>
+        <h3 class="font-display text-2xl font-bold text-navy mb-3">
+          {item.type}
+        </h3>
+        <p class="font-body text-charcoal/80 leading-relaxed text-sm flex-1">
+          {item.desc}
+        </p>
+        <div class="mt-8 pt-4 border-t border-navy/10 flex items-center text-gold font-body text-sm font-semibold group-hover:text-sky transition-colors">
+          {lang === 'en' ? 'Included in your tour' : 'Termasuk dalam tur'}
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

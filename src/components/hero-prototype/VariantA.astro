@@ -1,0 +1,51 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const headline = lang === "en" ? "Explore East Java" : "Jelajahi Keindahan Jawa Timur";
+const subheadline = lang === "en" 
+  ? "Private, comfortable, and personalized travel experiences to Bromo, Ijen, Tumpak Sewu, and beyond." 
+  : "Pengalaman perjalanan privat, nyaman, dan personal ke Bromo, Ijen, Tumpak Sewu, dan sekitarnya.";
+const ctaLabel = lang === "en" ? "Ask the Price on WhatsApp" : "Tanya Harga via WhatsApp";
+const secondaryLabel = lang === "en" ? "See the Story" : "Lihat Cerita Kami";
+---
+<div class="relative flex min-h-[100dvh] items-center justify-center bg-navy bg-gradient-to-br from-navy via-[#16355d] to-[#1c1c1c] text-offwhite px-4 py-24 sm:px-6 lg:px-8 w-full">
+  <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#C9A227_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+  <div class="relative z-10 mx-auto max-w-4xl text-center">
+    <span class="mb-4 inline-block rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold font-body">
+      {lang === "en" ? "Private & Flexible Tours" : "Tur Privat & Fleksibel"}
+    </span>
+
+    <h1 class="font-display text-4xl font-extrabold sm:text-6xl md:text-7xl text-offwhite tracking-tight leading-tight">
+      {headline}
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-offwhite/80 leading-relaxed font-body">
+      {subheadline}
+    </p>
+
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+      <WhatsAppCTA
+        label={ctaLabel}
+        message={lang === "en" ? "Hi Yajri Tour, I'd like to ask for prices for East Java tours." : "Halo Yajri Tour, saya ingin menanyakan harga paket tur Jawa Timur."}
+        variant="primary"
+      />
+
+      <a
+        href="#story"
+        class="inline-flex items-center gap-2 font-medium text-offwhite/90 hover:text-gold transition-colors py-2 px-4 font-body"
+      >
+        <span>{secondaryLabel}</span>
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

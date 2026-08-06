@@ -1,0 +1,95 @@
+---
+import VariantA from "./itinerary-prototype/VariantA.astro";
+import VariantB from "./itinerary-prototype/VariantB.astro";
+import VariantC from "./itinerary-prototype/VariantC.astro";
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const title = lang === "en" ? "Sample Tour Itinerary" : "Rencana Perjalanan Tur";
+const subtitle =
+  lang === "en"
+    ? "4 Days 3 Nights: Bromo – Tumpak Sewu – Ijen Highlights"
+    : "4 Hari 3 Malam: Sorotan Bromo – Tumpak Sewu – Ijen";
+
+// Placeholder days scaffold
+const sampleDays: { dayNumber: number; title: string; timeBlocks: { time: string; activity: string }[] }[] = [
+  {
+    dayNumber: 1,
+    title: lang === "en" ? "Day 1: Pickup & Transfer to Bromo Area" : "Hari 1: Penjemputan & Perjalanan ke Area Bromo",
+    timeBlocks: [
+      { time: "09:00", activity: lang === "en" ? "Pickup at Surabaya / Malang Airport or Station." : "Penjemputan di Bandara / Stasiun Surabaya atau Malang." },
+      { time: "12:00", activity: lang === "en" ? "Lunch at local restaurant & drive to Bromo hotel." : "Makan siang di restoran lokal & perjalanan menuju hotel di Bromo." },
+      { time: "15:00", activity: lang === "en" ? "Check-in hotel, free program & rest for early sunrise." : "Check-in hotel, acara bebas & istirahat untuk persiapan sunrise." }
+    ]
+  },
+  {
+    dayNumber: 2,
+    title: lang === "en" ? "Day 2: Bromo Sunrise & Crater - Transfer to Lumajang" : "Hari 2: Sunrise Bromo & Kawah - Perjalanan ke Lumajang",
+    timeBlocks: [
+      { time: "03:00", activity: lang === "en" ? "4WD Jeep pickup for Penanjakan Sunrise viewpoint." : "Penjemputan Jeep 4WD menuju titik pandang sunrise Penanjakan." },
+      { time: "06:00", activity: lang === "en" ? "Cross Sea of Sand & hike to Mount Bromo Crater rim." : "Menyeberangi Lautan Pasir & daki ke bibir Kawah Bromo." },
+      { time: "09:00", activity: lang === "en" ? "Breakfast at hotel, check-out & drive to Tumpak Sewu area." : "Sarapan di hotel, check-out & perjalanan menuju area Tumpak Sewu." }
+    ]
+  },
+  {
+    dayNumber: 3,
+    title: lang === "en" ? "Day 3: Tumpak Sewu Waterfall & Transfer to Banyuwangi" : "Hari 3: Air Terjun Tumpak Sewu & Perjalanan ke Banyuwangi",
+    timeBlocks: [
+      { time: "07:00", activity: lang === "en" ? "Trek down to Tumpak Sewu waterfall basin & Goa Tetes." : "Trekking ke dasar air terjun Tumpak Sewu & Goa Tetes." },
+      { time: "11:00", activity: lang === "en" ? "Clean up, lunch, and drive to Banyuwangi (Ijen area)." : "Bilas, makan siang, dan perjalanan ke Banyuwangi (area Ijen)." },
+      { time: "18:00", activity: lang === "en" ? "Check-in Banyuwangi hotel & early rest." : "Check-in hotel di Banyuwangi & istirahat lebih awal." }
+    ]
+  },
+  {
+    dayNumber: 4,
+    title: lang === "en" ? "Day 4: Ijen Blue Fire Trek & Drop-off" : "Hari 4: Pendakian Ijen Blue Fire & Pengantaran",
+    timeBlocks: [
+      { time: "00:30", activity: lang === "en" ? "Drive to Paltuding base camp & start midnight trek to Ijen crater." : "Perjalanan ke basecamp Paltuding & mulai trekking malam ke kawah Ijen." },
+      { time: "05:00", activity: lang === "en" ? "Witness Blue Fire & sunrise over turquoise acid lake." : "Saksikan Blue Fire & sunrise di atas danau kawah asam." },
+      { time: "09:00", activity: lang === "en" ? "Return to hotel, breakfast, check-out & drop-off Ketapang Port / Surabaya." : "Kembali ke hotel, sarapan, check-out & pengantaran Pelabuhan Ketapang / Surabaya." }
+    ]
+  }
+];
+---
+
+<section id="itinerary" class="bg-offwhite py-20 px-4 sm:px-6 lg:px-8 border-t border-navy/5 relative pb-32 group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="itinerary" 
+    sectionName="Itinerary" 
+    variants={[
+      { id: "A", name: "Vertical Timeline" },
+      { id: "B", name: "Horizontal Journey" },
+      { id: "C", name: "Accordion Focus" }
+    ]} 
+  />
+
+  <div class="mx-auto max-w-7xl relative z-10">
+    <div class="text-center mb-14">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
+        {title}
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-charcoal/80 font-body max-w-2xl mx-auto">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- PROTOTYPE VARIANTS -->
+    <div class="prototype-variant" data-section="itinerary" data-variant="A" style="display: none;">
+      <VariantA sampleDays={sampleDays} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="itinerary" data-variant="B" style="display: none;">
+      <VariantB sampleDays={sampleDays} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="itinerary" data-variant="C" style="display: none;">
+      <VariantC sampleDays={sampleDays} lang={lang} />
+    </div>
+  </div>
+</section>

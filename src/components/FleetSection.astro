@@ -1,0 +1,73 @@
+---
+import VariantA from "./fleet-prototype/VariantA.astro";
+import VariantB from "./fleet-prototype/VariantB.astro";
+import VariantC from "./fleet-prototype/VariantC.astro";
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const title = lang === "en" ? "Our Private Fleet" : "Armada Privat Kami";
+const subtitle =
+  lang === "en"
+    ? "Clean, modern, and spacious vehicles tailored for your journey."
+    : "Kendaraan bersih, modern, dan lapang khusus untuk kenyamanan tur Anda.";
+
+const fleetItems = [
+  {
+    type: lang === "en" ? "Passenger Van (HiAce / Elf)" : "Van Penumpang (HiAce / Elf)",
+    capacity: lang === "en" ? "Up to 10-14 Seats" : "Kapasitas 10-14 Kursi",
+    desc: lang === "en" ? "Ideal for larger groups or families with heavy luggage." : "Ideal untuk grup besar atau keluarga dengan banyak bagasi."
+  },
+  {
+    type: lang === "en" ? "Innova MPV (Medium)" : "Innova MPV (Sedang)",
+    capacity: lang === "en" ? "Up to 5-6 Seats" : "Kapasitas 5-6 Kursi",
+    desc: lang === "en" ? "Maximum comfort and smooth driving for long trips." : "Kenyamanan maksimal dan suspensi halus untuk perjalanan jauh."
+  },
+  {
+    type: lang === "en" ? "Avanza MPV (Compact)" : "Avanza MPV (Kompak)",
+    capacity: lang === "en" ? "Up to 3-4 Seats" : "Kapasitas 3-4 Kursi",
+    desc: lang === "en" ? "Perfect for couples or small families exploring East Java." : "Sangat cocok untuk pasangan atau keluarga kecil."
+  }
+];
+---
+
+<section id="fleet" class="bg-offwhite py-20 px-4 sm:px-6 lg:px-8 border-t border-navy/5 relative pb-32 group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="fleet" 
+    sectionName="Fleet" 
+    variants={[
+      { id: 'A', name: 'Fleet Cards' },
+      { id: 'B', name: 'Detailed Specs' },
+      { id: 'C', name: 'Fleet Carousel' }
+    ]} 
+  />
+
+  <div class="mx-auto max-w-7xl relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
+        {title}
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-charcoal/80 font-body">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- PROTOTYPE VARIANTS -->
+    <div class="prototype-variant" data-section="fleet" data-variant="A" style="display: none;">
+      <VariantA fleetItems={fleetItems} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="fleet" data-variant="B" style="display: none;">
+      <VariantB fleetItems={fleetItems} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="fleet" data-variant="C" style="display: none;">
+      <VariantC fleetItems={fleetItems} lang={lang} />
+    </div>
+  </div>
+</section>

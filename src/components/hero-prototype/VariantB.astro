@@ -1,0 +1,78 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const headline = lang === "en" ? "Explore East Java" : "Jelajahi Keindahan Jawa Timur";
+const subheadline = lang === "en" 
+  ? "Private, comfortable, and personalized travel experiences to Bromo, Ijen, Tumpak Sewu, and beyond." 
+  : "Pengalaman perjalanan privat, nyaman, dan personal ke Bromo, Ijen, Tumpak Sewu, dan sekitarnya.";
+const ctaLabel = lang === "en" ? "Ask the Price on WhatsApp" : "Tanya Harga via WhatsApp";
+const secondaryLabel = lang === "en" ? "See the Story" : "Lihat Cerita Kami";
+---
+<div class="relative flex flex-col lg:flex-row min-h-[100dvh] w-full bg-navy">
+  <!-- Left Content -->
+  <div class="flex-1 flex flex-col justify-center px-8 py-24 sm:px-12 lg:px-20 z-10">
+    <div class="max-w-xl">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-px w-12 bg-gold"></div>
+        <span class="text-gold font-semibold uppercase tracking-widest text-sm font-body">
+          {lang === "en" ? "Private Tours" : "Tur Privat"}
+        </span>
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl text-offwhite leading-[1.1] mb-6">
+        {headline}
+      </h1>
+
+      <p class="text-offwhite/70 font-body text-lg sm:text-xl leading-relaxed mb-12 border-l-2 border-[#16355d] pl-6">
+        {subheadline}
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-start gap-6">
+        <WhatsAppCTA
+          label={ctaLabel}
+          message={lang === "en" ? "Hi Yajri Tour, I'd like to ask for prices for East Java tours." : "Halo Yajri Tour, saya ingin menanyakan harga paket tur Jawa Timur."}
+          variant="primary"
+        />
+        <a href="#story" class="group flex items-center gap-3 text-offwhite hover:text-gold transition-colors py-3 font-body">
+          <span class="font-medium tracking-wide uppercase text-sm">{secondaryLabel}</span>
+          <div class="h-8 w-8 rounded-full border border-offwhite/20 flex items-center justify-center group-hover:border-gold transition-colors">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Image Area -->
+  <div class="flex-1 relative min-h-[40vh] lg:min-h-full bg-[#1c1c1c]">
+    <!-- Moody Gradient Placeholder for Photography -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-navy via-[#16355d] to-[#4a5d7c] opacity-80 mix-blend-multiply"></div>
+    <!-- Simple pattern since we want to avoid breaking links but we want a landscape feel -->
+    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F7F7F5_1px,transparent_1px)] [background-size:32px_32px]"></div>
+    
+    <!-- Overlay to blend edge -->
+    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent lg:bg-gradient-to-l lg:from-navy/90 lg:via-navy/30"></div>
+    
+    <!-- Testimonial or caption overlay -->
+    <div class="absolute bottom-8 right-8 left-8 lg:left-auto max-w-sm bg-navy/80 backdrop-blur-sm p-6 border-l-4 border-gold">
+      <p class="font-body text-sm text-offwhite/90 italic mb-2">
+        "{t(lang, "promise.quote")}"
+      </p>
+      <div class="flex items-center gap-2">
+        <div class="text-gold flex text-sm">
+          ★★★★★
+        </div>
+        <span class="text-xs text-offwhite/50 uppercase tracking-wider font-body">{t(lang, "promise.attribution")}</span>
+      </div>
+    </div>
+  </div>
+</div>

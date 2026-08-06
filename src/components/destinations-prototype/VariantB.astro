@@ -1,0 +1,65 @@
+---
+import Badge from "../Badge.astro";
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  destinations: any[];
+  lang: string;
+}
+
+const { destinations, lang } = Astro.props;
+---
+<div class="flex flex-col gap-12 sm:gap-20">
+  {destinations.map((item, index) => {
+    const isPlaceholder = item.data.slug === "batu" || item.data.slug === "pantai-selatan-malang";
+    const hook = lang === "en" ? item.data.hookEn : item.data.hookId;
+    const whatsappMessage = lang === "en" ? item.data.whatsappMessageEn : item.data.whatsappMessageId;
+    const ctaLabel = lang === "en" ? "Ask Price & Availability" : "Tanya Harga & Jadwal";
+    const isEven = index % 2 === 1;
+
+    return (
+      <div class={`flex flex-col ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center bg-navy rounded-3xl overflow-hidden shadow-2xl border border-navy/10`}>
+        {/* Image Side */}
+        <div class="w-full md:w-1/2 h-64 md:h-[450px] relative bg-navy/50">
+          {isPlaceholder && (
+            <div class="absolute top-4 right-4 z-10 rounded-full bg-gold/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy shadow-sm backdrop-blur-xs">
+              {lang === "en" ? "Content coming soon" : "Segera Hadir"}
+            </div>
+          )}
+          <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-navy/90 via-navy/20 to-transparent z-10">
+            {/* Minimal overlay title if desired, but we put it in content side */}
+          </div>
+          <div class="h-full w-full bg-gradient-to-br from-navy/40 to-navy/80 flex items-center justify-center text-xs text-offwhite/50">
+            <span>{t(lang, "ui.photo")}: {item.data.name}</span>
+          </div>
+        </div>
+
+        {/* Content Side */}
+        <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+          <div class="mb-6 flex flex-wrap gap-2">
+            {item.data.badges.map((type: "foreign" | "domestic") => (
+              <Badge type={type} lang={lang} />
+            ))}
+          </div>
+
+          <h3 class="font-display text-3xl md:text-5xl font-bold text-gold mb-6 leading-tight">
+            {item.data.name}
+          </h3>
+
+          <p class="text-base md:text-lg font-body text-offwhite/90 leading-relaxed mb-10">
+            {hook}
+          </p>
+
+          <div>
+            <WhatsAppCTA
+              label={ctaLabel}
+              message={whatsappMessage}
+              variant="inline"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>

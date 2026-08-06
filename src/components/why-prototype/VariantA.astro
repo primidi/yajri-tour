@@ -1,0 +1,26 @@
+---
+interface Props {
+  features: Array<{ icon: string; titleId: string; titleEn: string; descId: string; descEn: string }>;
+  lang: string;
+}
+
+const { features, lang } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {features.map((feat) => (
+    <div class="group flex flex-col items-center text-center p-8 rounded-2xl bg-white shadow-sm border border-navy/5 hover:border-gold/30 hover:shadow-md transition-all duration-300">
+      <div class="flex h-16 w-16 items-center justify-center rounded-full bg-offwhite text-navy mb-6 group-hover:bg-navy group-hover:text-gold transition-colors duration-300">
+        <svg class="h-8 w-8 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d={feat.icon} />
+        </svg>
+      </div>
+      <h3 class="font-display text-xl font-bold text-navy mb-3">
+        {lang === "en" ? feat.titleEn : feat.titleId}
+      </h3>
+      <p class="text-base font-body text-charcoal/80 leading-relaxed">
+        {lang === "en" ? feat.descEn : feat.descId}
+      </p>
+    </div>
+  ))}
+</div>

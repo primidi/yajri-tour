@@ -1,0 +1,49 @@
+---
+import "../styles/global.css";
+import { SITE_NAME } from "../consts";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppCTA from "../components/WhatsAppCTA.astro";
+import { t } from "../i18n/utils";
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  canonicalPath?: string;
+}
+
+const {
+  lang = "id",
+  title = SITE_NAME,
+  description = t(lang, "site.description"),
+  canonicalPath = lang === "en" ? "/en/" : "/",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" hreflang="id" href="/" />
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-offwhite text-charcoal font-body antialiased min-h-screen flex flex-col">
+    <Header lang={lang} />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <WhatsAppCTA variant="sticky-fab" label={lang === "en" ? "Chat on WhatsApp" : "Tanya via WhatsApp"} />
+  </body>
+</html>

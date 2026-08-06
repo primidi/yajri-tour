@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+import StorySection from "../../components/StorySection.astro";
+import DestinationsSection from "../../components/DestinationsSection.astro";
+import ItinerarySection from "../../components/ItinerarySection.astro";
+import WhyChooseUs from "../../components/WhyChooseUs.astro";
+import FleetSection from "../../components/FleetSection.astro";
+import FAQSection from "../../components/FAQSection.astro";
+import FinalCTABand from "../../components/FinalCTABand.astro";
+import enData from "../../i18n/en.json";
+---
+
+<BaseLayout
+  lang="en"
+  title={enData.site.title}
+  description={enData.site.description}
+>
+  <Hero lang="en" />
+  <StorySection lang="en" />
+  <DestinationsSection lang="en" />
+  <ItinerarySection lang="en" />
+  <WhyChooseUs lang="en" />
+  <FleetSection lang="en" />
+  <FAQSection lang="en" />
+  <FinalCTABand lang="en" />
+</BaseLayout>

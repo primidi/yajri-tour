@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Yajri Tour & Travel — Paket Wisata Privat Bromo Ijen Tumpak Sewu",
+    "description": "Layanan paket wisata privat dan nyaman di Jawa Timur. Jelajahi Gunung Bromo, Kawah Ijen, dan Air Terjun Tumpak Sewu dengan armada privat terbaik."
+  },
+  "nav": {
+    "story": "Tentang Kami",
+    "destinations": "Destinasi",
+    "itinerary": "Rencana Perjalanan",
+    "contact": "Kontak"
+  },
+  "cta": {
+    "bookNow": "Pesan Sekarang",
+    "askPrice": "Tanya Harga via WhatsApp",
+    "seeStory": "Lihat Cerita Kami",
+    "chatWa": "Tanya via WhatsApp"
+  },
+  "ui": {
+    "toggleMenu": "Buka Menu",
+    "travelerReview": "Ulasan Wisatawan",
+    "photoPlaceholder": "Foto",
+    "photo": "Foto",
+    "dayLabel": "Hari",
+    "acceptedPayments": "Metode Pembayaran:",
+    "directBooking": "Pemesanan Langsung",
+    "paymentMethods": "Metode Pembayaran",
+    "repliesInMinutes": "Biasanya membalas dalam hitungan",
+    "minutes": "menit"
+  },
+  "promise": {
+    "quote": "Dirancang untuk wisatawan yang menyukai ritme santai menikmati setiap destinasi tanpa terburu-buru.",
+    "attribution": "— Janji Yajri"
+  },
+  "story": {
+    "bromoSunrise": "Sunrise Bromo",
+    "tumpakSewu": "Tumpak Sewu",
+    "privateFleet": "Armada Privat",
+    "relaxedPace": "Ritme Santai",
+    "private": "Privat",
+    "unrushedPacing": "Ritme Tak Terburu",
+    "localExpertise": "Keahlian Lokal",
+    "ijenTrekking": "Trekking Api Biru Ijen",
+    "premiumFleet": "Armada Premium"
+  }
+}

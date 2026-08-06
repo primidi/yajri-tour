@@ -1,0 +1,38 @@
+---
+import WhatsAppCTA from "./WhatsAppCTA.astro";
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+import VariantA from "./hero-prototype/VariantA.astro";
+import VariantB from "./hero-prototype/VariantB.astro";
+import VariantC from "./hero-prototype/VariantC.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+---
+
+<section class="relative group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="hero" 
+    sectionName="Hero" 
+    variants={[
+      { id: 'A', name: 'Standard Hero' },
+      { id: 'B', name: 'Editorial Split' },
+      { id: 'C', name: 'Immersive Video/Image' }
+    ]} 
+  />
+
+  <div class="prototype-variant" data-section="hero" data-variant="A" style="display: none;">
+    <VariantA lang={lang} />
+  </div>
+  
+  <div class="prototype-variant" data-section="hero" data-variant="B" style="display: none;">
+    <VariantB lang={lang} />
+  </div>
+  
+  <div class="prototype-variant" data-section="hero" data-variant="C" style="display: none;">
+    <VariantC lang={lang} />
+  </div>
+</section>

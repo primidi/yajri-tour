@@ -1,0 +1,86 @@
+---
+interface Props {
+  sectionKey: string;
+  sectionName: string;
+  variants: { id: string; name: string }[];
+}
+
+const { sectionKey, sectionName, variants } = Astro.props;
+---
+<div class="sticky top-24 z-30 w-full h-0 pointer-events-none">
+  <div class="prototype-section-switcher absolute top-0 right-4 pointer-events-auto flex items-center gap-3 bg-navy text-offwhite px-4 py-2 rounded-full shadow-xl border border-gold/30 print:hidden font-body text-xs"
+       data-section={sectionKey}
+       data-variants={JSON.stringify(variants)}>
+  <button class="prev-variant hover:text-gold transition-colors p-1 font-bold" aria-label="Previous variant">←</button>
+  <div class="flex items-center gap-1.5 cursor-default">
+    <span class="opacity-70">{sectionName}:</span>
+    <span class="font-bold text-gold current-variant-label">A</span>
+    <span class="variant-name-label hidden sm:inline opacity-90 truncate max-w-[150px]"></span>
+  </div>
+  <button class="next-variant hover:text-gold transition-colors p-1 font-bold" aria-label="Next variant">→</button>
+  </div>
+</div>
+
+<script>
+  const switchers = document.querySelectorAll('.prototype-section-switcher');
+  
+  function updateSectionVariant(sectionKey, variantId, variantsData, switcherEl) {
+    const variantIndex = variantsData.findIndex(v => v.id === variantId);
+    if (variantIndex === -1) return;
+    
+    // Update URL without reload
+    const url = new URL(window.location.href);
+    url.searchParams.set(sectionKey, variantId);
+    window.history.replaceState({}, '', url);
+    
+    // Update UI in the switcher
+    const currentLabel = switcherEl.querySelector('.current-variant-label');
+    const nameLabel = switcherEl.querySelector('.variant-name-label');
+    if (currentLabel) currentLabel.textContent = variantId;
+    if (nameLabel) nameLabel.textContent = variantsData[variantIndex].name;
+    
+    // Toggle variants inside this specific section
+    document.querySelectorAll(`.prototype-variant[data-section="${sectionKey}"]`).forEach(el => {
+      const htmlEl = el as HTMLElement;
+      if (htmlEl.dataset.variant === variantId) {
+        htmlEl.style.display = 'block';
+      } else {
+        htmlEl.style.display = 'none';
+      }
+    });
+  }
+
+  switchers.forEach(switcher => {
+    const sectionKey = (switcher as HTMLElement).dataset.section;
+    const variantsData = JSON.parse((switcher as HTMLElement).dataset.variants || '[]');
+    
+    if (!sectionKey || variantsData.length === 0) return;
+
+    // Initialize
+    const params = new URLSearchParams(window.location.search);
+    const initialVariant = params.get(sectionKey) || variantsData[0].id;
+    updateSectionVariant(sectionKey, initialVariant, variantsData, switcher);
+    
+    // Setup buttons
+    const prevBtn = switcher.querySelector('.prev-variant');
+    const nextBtn = switcher.querySelector('.next-variant');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const current = new URLSearchParams(window.location.search).get(sectionKey) || variantsData[0].id;
+        const index = variantsData.findIndex(v => v.id === current);
+        const prevIndex = index <= 0 ? variantsData.length - 1 : index - 1;
+        updateSectionVariant(sectionKey, variantsData[prevIndex].id, variantsData, switcher);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const current = new URLSearchParams(window.location.search).get(sectionKey) || variantsData[0].id;
+        const index = variantsData.findIndex(v => v.id === current);
+        const nextIndex = index >= variantsData.length - 1 ? 0 : index + 1;
+        updateSectionVariant(sectionKey, variantsData[nextIndex].id, variantsData, switcher);
+      });
+    }
+  });
+</script>

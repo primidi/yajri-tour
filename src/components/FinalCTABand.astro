@@ -1,0 +1,37 @@
+---
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+import VariantA from "./cta-prototype/VariantA.astro";
+import VariantB from "./cta-prototype/VariantB.astro";
+import VariantC from "./cta-prototype/VariantC.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+---
+
+<section id="contact" class="relative group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="cta" 
+    sectionName="Final CTA" 
+    variants={[
+      { id: 'A', name: 'Centered Impact' },
+      { id: 'B', name: 'Image Split' },
+      { id: 'C', name: 'Minimal Ribbon' }
+    ]} 
+  />
+
+  <div class="prototype-variant" data-section="cta" data-variant="A" style="display: none;">
+    <VariantA lang={lang} />
+  </div>
+  
+  <div class="prototype-variant" data-section="cta" data-variant="B" style="display: none;">
+    <VariantB lang={lang} />
+  </div>
+  
+  <div class="prototype-variant" data-section="cta" data-variant="C" style="display: none;">
+    <VariantC lang={lang} />
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+interface Props {
+  features: Array<{ icon: string; titleId: string; titleEn: string; descId: string; descEn: string }>;
+  lang: string;
+}
+
+const { features, lang } = Astro.props;
+---
+
+<div class="max-w-4xl mx-auto divide-y divide-navy/10 border-t border-b border-navy/10 bg-white rounded-2xl p-4 sm:p-8 shadow-sm">
+  {features.map((feat, index) => (
+    <details class="group py-6 first:pt-2 last:pb-2" open={index === 0}>
+      <summary class="flex items-center justify-between cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+        <div class="flex items-center gap-6">
+          <div class="text-sky bg-sky/10 p-4 rounded-xl group-open:bg-navy group-open:text-gold transition-colors duration-300">
+            <svg class="h-7 w-7 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={feat.icon} />
+            </svg>
+          </div>
+          <h3 class="font-display text-xl md:text-2xl font-bold text-navy group-hover:text-gold transition-colors duration-300">
+            {lang === "en" ? feat.titleEn : feat.titleId}
+          </h3>
+        </div>
+        <span class="ml-6 flex items-center justify-center h-10 w-10 rounded-full border border-navy/20 group-open:rotate-180 transition-transform duration-500 shrink-0 bg-offwhite">
+          <svg class="h-5 w-5 stroke-navy fill-none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </summary>
+      <div class="mt-6 ml-20 md:ml-[5.5rem] pr-8 pb-4 text-lg font-body text-charcoal/80 animate-fade-in leading-relaxed">
+        {lang === "en" ? feat.descEn : feat.descId}
+      </div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(-8px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+</style>

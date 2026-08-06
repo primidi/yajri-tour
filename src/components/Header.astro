@@ -1,0 +1,101 @@
+---
+import { t } from "../i18n/utils";
+import WhatsAppCTA from "./WhatsAppCTA.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const navLinks = [
+  { href: "#story", label: lang === "en" ? "Story" : "Tentang Kami" },
+  { href: "#destinations", label: lang === "en" ? "Destinations" : "Destinasi" },
+  { href: "#itinerary", label: lang === "en" ? "Itinerary" : "Rencana Perjalanan" },
+  { href: "#contact", label: lang === "en" ? "Contact" : "Kontak" },
+];
+---
+
+<header class="sticky top-0 z-40 bg-navy text-offwhite shadow-md">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <a href={lang === "en" ? "/en/" : "/"} class="font-display text-2xl font-bold text-gold z-50 relative">
+      Yajri Tour & Travel
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center space-x-6">
+      {navLinks.map((link) => (
+        <a href={link.href} class="text-sm font-medium text-offwhite/90 hover:text-gold transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop Actions -->
+    <div class="hidden md:flex items-center space-x-4">
+      <div class="flex items-center space-x-1 text-sm font-medium">
+        <a href="/" class={`px-2 py-1 rounded ${lang === "id" ? "text-gold font-bold" : "text-offwhite/70 hover:text-offwhite"}`}>ID</a>
+        <span class="text-offwhite/40">|</span>
+        <a href="/en/" class={`px-2 py-1 rounded ${lang === "en" ? "text-gold font-bold" : "text-offwhite/70 hover:text-offwhite"}`}>EN</a>
+      </div>
+      <WhatsAppCTA
+        label={lang === "en" ? "Book Tour" : "Pesan Sekarang"}
+        message={lang === "en" ? "Hi Yajri Tour, I would like to book a trip." : "Halo Yajri Tour, saya ingin memesan paket tur."}
+        variant="primary"
+      />
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button id="mobile-menu-btn" class="md:hidden z-50 relative p-2 text-offwhite focus:outline-none" aria-label={t(lang, "ui.toggleMenu")}>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon-bars" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-navy/95 backdrop-blur-sm z-40 hidden flex-col pt-24 px-6 md:hidden">
+    <nav class="flex flex-col space-y-6 text-center">
+      {navLinks.map((link) => (
+        <a href={link.href} class="mobile-nav-link text-xl font-display font-medium text-offwhite hover:text-gold transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+    <div class="mt-10 flex flex-col items-center space-y-6">
+      <div class="flex items-center space-x-4 text-lg font-medium">
+        <a href="/" class={`px-4 py-2 rounded-full border ${lang === "id" ? "border-gold text-gold" : "border-offwhite/20 text-offwhite/70"}`}>ID</a>
+        <a href="/en/" class={`px-4 py-2 rounded-full border ${lang === "en" ? "border-gold text-gold" : "border-offwhite/20 text-offwhite/70"}`}>EN</a>
+      </div>
+      <WhatsAppCTA
+        label={lang === "en" ? "Book Tour" : "Pesan Sekarang"}
+        message={lang === "en" ? "Hi Yajri Tour, I would like to book a trip." : "Halo Yajri Tour, saya ingin memesan paket tur."}
+        variant="primary"
+      />
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconBars = document.getElementById('menu-icon-bars');
+  const iconClose = document.getElementById('menu-icon-close');
+  const links = document.querySelectorAll('.mobile-nav-link');
+
+  function toggleMenu() {
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
+    iconBars?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  btn?.addEventListener('click', toggleMenu);
+  
+  // Close menu when clicking a link
+  links.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+</script>

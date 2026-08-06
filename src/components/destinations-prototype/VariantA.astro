@@ -1,0 +1,30 @@
+---
+import DestinationCard from "../DestinationCard.astro";
+
+interface Props {
+  destinations: any[];
+  lang: string;
+}
+
+const { destinations, lang } = Astro.props;
+---
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {destinations.map((item) => {
+    const isPlaceholder = item.data.slug === "batu" || item.data.slug === "pantai-selatan-malang";
+    const hook = lang === "en" ? item.data.hookEn : item.data.hookId;
+    const whatsappMessage = lang === "en" ? item.data.whatsappMessageEn : item.data.whatsappMessageId;
+
+    return (
+      <DestinationCard
+        name={item.data.name}
+        slug={item.data.slug}
+        heroImage={item.data.heroImage}
+        hook={hook}
+        badges={item.data.badges}
+        whatsappMessage={whatsappMessage}
+        lang={lang}
+        isPlaceholderHook={isPlaceholder}
+      />
+    );
+  })}
+</div>

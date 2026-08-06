@@ -1,0 +1,68 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { WHATSAPP_NUMBER } from "../../consts";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+const headline =
+  lang === "en"
+    ? "Design Your Unrushed Journey"
+    : "Rancang Perjalanan Santai Anda";
+const subheadline =
+  lang === "en"
+    ? "We specialize in private, relaxed-pace tours. Skip the crowded 2 AM rushes and experience Bromo and Ijen exactly how they should be seen. Reach out for a custom route."
+    : "Spesialis tur privat tanpa terburu-buru. Nikmati Bromo dan Ijen dengan tenang. Hubungi kami untuk rute kustom Anda.";
+const ctaLabel = lang === "en" ? "Plan Your Trip" : "Rencanakan Perjalanan";
+const message = lang === "en" ? "Hi Yajri Tour, I'm interested in a relaxed-pace private tour." : "Halo Yajri Tour, saya tertarik dengan tur privat yang santai.";
+---
+
+<div class="w-full flex flex-col lg:flex-row min-h-[500px]">
+  <!-- Left Side: Image Placeholder / Mood -->
+  <div class="lg:w-1/2 relative bg-navy flex items-center justify-center p-12 overflow-hidden">
+    <!-- Simulating a moody dusk image -->
+    <div class="absolute inset-0 bg-gradient-to-b from-navy via-navy to-[#111c2a] opacity-90"></div>
+    <div class="absolute inset-0 bg-[url('/placeholder-bromo-dusk.jpg')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+    
+    <div class="relative z-10 border border-gold/30 p-8 max-w-sm text-center backdrop-blur-sm bg-navy/40">
+      <p class="font-display text-gold text-xl italic mb-2">"{t(lang, "promise.quote")}"</p>
+      <p class="font-body text-offwhite/60 text-sm uppercase tracking-widest">{t(lang, "promise.attribution")}</p>
+    </div>
+  </div>
+
+  <!-- Right Side: Content & CTA -->
+  <div class="lg:w-1/2 bg-offwhite py-20 px-8 sm:px-16 lg:px-20 flex flex-col justify-center">
+    <h2 class="font-display text-4xl font-bold text-navy mb-6">
+      {headline}
+    </h2>
+    <p class="font-body text-charcoal/80 text-lg leading-relaxed mb-10 border-l-2 border-sky pl-4">
+      {subheadline}
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+      <WhatsAppCTA
+        label={ctaLabel}
+        message={message}
+        variant="primary"
+      />
+      <div class="flex flex-col">
+        <span class="text-xs text-charcoal/50 uppercase tracking-wider font-semibold mb-1">{t(lang, "ui.directBooking")}</span>
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="font-body text-navy hover:text-sky font-bold transition-colors">
+          +{WHATSAPP_NUMBER}
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-navy/10">
+      <p class="text-xs text-charcoal/60 mb-2 font-semibold">{t(lang, "ui.paymentMethods")}</p>
+      <div class="flex gap-3 text-sm text-charcoal/80 font-mono">
+        <span class="bg-navy/5 px-2 py-1 rounded">Transfer</span>
+        <span class="bg-navy/5 px-2 py-1 rounded">Wise</span>
+        <span class="bg-navy/5 px-2 py-1 rounded">PayPal</span>
+      </div>
+    </div>
+  </div>
+</div>

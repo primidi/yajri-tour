@@ -1,0 +1,54 @@
+---
+import { t } from "../../i18n/utils";
+
+interface Props {
+  fleetItems: {
+    type: string;
+    capacity: string;
+    desc: string;
+  }[];
+  lang?: string;
+}
+
+const { fleetItems, lang = "id" } = Astro.props;
+---
+<div class="flex flex-col gap-16 max-w-5xl mx-auto">
+  {fleetItems.map((item, idx) => (
+    <div class={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-12 items-center`}>
+      <div class="w-full md:w-1/2 aspect-video bg-navy flex items-center justify-center rounded-2xl relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gold/10 group-hover:bg-transparent transition-colors duration-500"></div>
+        <span class="text-sm font-bold text-offwhite/50 uppercase tracking-widest font-body">
+          {t(lang, "ui.photoPlaceholder")}
+        </span>
+      </div>
+      <div class="w-full md:w-1/2 flex flex-col justify-center">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="h-px w-12 bg-gold"></div>
+          <span class="text-sm font-semibold tracking-wider text-sky uppercase font-body">
+            {item.capacity}
+          </span>
+        </div>
+        <h3 class="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
+          {item.type}
+        </h3>
+        <p class="font-body text-charcoal/80 text-lg leading-relaxed mb-6">
+          {item.desc}
+        </p>
+        <ul class="space-y-3 font-body text-charcoal/90 text-sm">
+          <li class="flex items-start">
+            <svg class="h-5 w-5 text-sky mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{lang === 'en' ? 'Professional local driver' : 'Sopir lokal profesional'}</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="h-5 w-5 text-sky mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{lang === 'en' ? 'Fuel, tolls, and parking included' : 'Termasuk BBM, tol, dan parkir'}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  ))}
+</div>

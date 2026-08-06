@@ -1,17 +1,27 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import StorySection from "../components/StorySection.astro";
+import DestinationsSection from "../components/DestinationsSection.astro";
+import ItinerarySection from "../components/ItinerarySection.astro";
+import WhyChooseUs from "../components/WhyChooseUs.astro";
+import FleetSection from "../components/FleetSection.astro";
+import FAQSection from "../components/FAQSection.astro";
+import FinalCTABand from "../components/FinalCTABand.astro";
+import idData from "../i18n/id.json";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  lang="id"
+  title={idData.site.title}
+  description={idData.site.description}
+>
+  <Hero lang="id" />
+  <StorySection lang="id" />
+  <DestinationsSection lang="id" />
+  <ItinerarySection lang="id" />
+  <WhyChooseUs lang="id" />
+  <FleetSection lang="id" />
+  <FAQSection lang="id" />
+  <FinalCTABand lang="id" />
+</BaseLayout>

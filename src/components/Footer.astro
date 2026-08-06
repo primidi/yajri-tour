@@ -1,0 +1,41 @@
+---
+import { WHATSAPP_NUMBER } from "../consts";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer id="contact" class="bg-navy text-offwhite border-t border-navy/50">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+      <div>
+        <a href={lang === "en" ? "/en/" : "/"} class="font-display text-2xl font-bold text-gold">
+          Yajri Tour & Travel
+        </a>
+        <p class="mt-2 text-sm text-offwhite/70">
+          {lang === "en" ? "Private & Comfort Travel in East Java" : "Layanan Wisata Privat & Nyaman di Jawa Timur"}
+        </p>
+      </div>
+
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="text-offwhite/70 hover:text-gold transition-colors text-sm">Instagram</a>
+        <a href="#" class="text-offwhite/70 hover:text-gold transition-colors text-sm">Facebook</a>
+        <a href="#" class="text-offwhite/70 hover:text-gold transition-colors text-sm">TikTok</a>
+      </div>
+
+      <div class="md:text-right">
+        <p class="text-sm text-offwhite/70">
+          WhatsApp: <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="text-gold hover:underline">+{WHATSAPP_NUMBER}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t border-offwhite/10 pt-8 text-center text-xs text-offwhite/50">
+      <p>&copy; {currentYear} Yajri Tour & Travel. {lang === "en" ? "All rights reserved." : "Hak Cipta Dilindungi."}</p>
+    </div>
+  </div>
+</footer>

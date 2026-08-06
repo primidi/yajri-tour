@@ -1,0 +1,54 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { WHATSAPP_NUMBER } from "../../consts";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+const headline =
+  lang === "en"
+    ? "Prefer a relaxed pace?"
+    : "Lebih suka liburan yang santai?";
+const subheadline =
+  lang === "en"
+    ? "Let's plan your East Java trip over WhatsApp. No hidden costs, just honest advice."
+    : "Mari rencanakan liburan Jawa Timur Anda via WhatsApp. Tanpa biaya tersembunyi.";
+const ctaLabel = lang === "en" ? "Chat Now" : "Chat Sekarang";
+const message = lang === "en" ? "Hi Yajri Tour, I have some questions about a private tour." : "Halo Yajri Tour, saya ada pertanyaan tentang tur privat.";
+---
+
+<div class="bg-offwhite border-y border-navy/10 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-8">
+    
+    <div class="flex-1 flex flex-col sm:flex-row items-center sm:items-start md:items-center gap-6 text-center sm:text-left">
+      <div class="w-16 h-16 rounded-full bg-navy flex items-center justify-center shrink-0 shadow-lg shadow-navy/10">
+        <svg class="w-8 h-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h2 class="font-display text-2xl font-bold text-navy">
+          {headline}
+        </h2>
+        <p class="mt-1 font-body text-charcoal text-base">
+          {subheadline}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex-shrink-0 flex flex-col items-center sm:items-end gap-3">
+      <WhatsAppCTA
+        label={ctaLabel}
+        message={message}
+        variant="primary"
+      />
+      <p class="text-xs text-charcoal/60 font-body">
+        {t(lang, "ui.repliesInMinutes")} <span class="font-bold text-navy">{t(lang, "ui.minutes")}</span>
+      </p>
+    </div>
+    
+  </div>
+</div>

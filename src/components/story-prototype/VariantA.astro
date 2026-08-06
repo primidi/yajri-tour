@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TestimonialCard from "../TestimonialCard.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  testimonials: CollectionEntry<"testimonials">[];
+  lang?: string;
+}
+
+const { testimonials, lang = "id" } = Astro.props;
+
+const title = lang === "en" ? "Our Story & Commitment" : "Cerita & Komitmen Kami";
+const subtitle =
+  lang === "en"
+    ? "Delivering safe, personal, and unforgettable travel experiences across East Java."
+    : "Menghadirkan pengalaman perjalanan yang aman, personal, dan tak terlupakan di seluruh Jawa Timur.";
+
+const placeholderStory =
+  lang === "en"
+    ? "PLACEHOLDER — Founded by local guides with years of experience traversing Bromo, Ijen, and Java's hidden gems. We focus on clear communication, flexible timing, and well-maintained private vehicles to ensure your journey is seamless from arrival to departure."
+    : "PLACEHOLDER — Didirikan oleh pemandu lokal berpengalaman dalam menjelajahi Bromo, Ijen, dan pesona alam Jawa Timur. Kami mengutamakan komunikasi yang jelas, waktu yang fleksibel, dan armada privat yang terawat agar perjalanan Anda lancar dari awal hingga akhir.";
+---
+
+<div class="py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+    <!-- Image Collage -->
+    <div class="relative h-[500px] rounded-2xl overflow-hidden bg-navy/5 border border-navy/10 flex flex-col justify-center items-center group">
+      <div class="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2 p-2">
+        <div class="bg-navy/10 rounded-xl flex items-center justify-center p-4">
+          <span class="text-xs font-semibold text-navy/60 uppercase text-center tracking-wider">{t(lang, "story.bromoSunrise")}</span>
+        </div>
+        <div class="bg-navy/10 rounded-xl flex items-center justify-center p-4 row-span-2 relative overflow-hidden">
+          <div class="absolute inset-0 bg-navy/10"></div>
+          <span class="text-xs font-semibold text-navy/60 uppercase text-center tracking-wider relative z-10">{t(lang, "story.tumpakSewu")}</span>
+        </div>
+        <div class="bg-navy/10 rounded-xl flex items-center justify-center p-4">
+          <span class="text-xs font-semibold text-navy/60 uppercase text-center tracking-wider">{t(lang, "story.privateFleet")}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Content -->
+    <div class="flex flex-col justify-center">
+      <h2 class="font-display text-4xl font-bold text-navy md:text-5xl mb-6">
+        {title}
+      </h2>
+      <p class="text-xl text-gold font-display italic mb-6">
+        {subtitle}
+      </p>
+      <div class="w-16 h-1 bg-gold mb-8"></div>
+      <p class="text-charcoal/80 leading-relaxed text-lg font-body mb-8">
+        {placeholderStory}
+      </p>
+      <div class="flex gap-4 items-center text-sm font-semibold text-navy/70 uppercase tracking-widest">
+        <span><span class="text-sky mr-2 font-bold">✓</span> {t(lang, "story.relaxedPace")}</span>
+        <span><span class="text-sky mr-2 font-bold">✓</span> {t(lang, "story.private")}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div>
+    <div class="flex items-center justify-between mb-12">
+      <h3 class="font-display text-3xl font-bold text-navy">
+        {lang === "en" ? "Traveler Stories" : "Cerita Perjalanan"}
+      </h3>
+      <a href="#" class="text-sky hover:text-navy transition-colors font-semibold font-body text-sm uppercase tracking-wider hidden sm:block">
+        {lang === "en" ? "Read all reviews →" : "Baca semua ulasan →"}
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map((item) => (
+        <TestimonialCard
+          quote={lang === "en" ? item.data.quoteEn : item.data.quoteId}
+          author={item.data.author}
+          location={item.data.location}
+          rating={item.data.rating}
+          isPlaceholder={item.data.isPlaceholder}
+          lang={lang}
+        />
+      ))}
+    </div>
+  </div>
+</div>

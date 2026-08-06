@@ -1,0 +1,95 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+
+interface Props {
+  lang?: string;
+  sampleDays: { dayNumber: number; title: string; timeBlocks: { time: string; activity: string }[] }[];
+}
+
+const { lang = "id", sampleDays } = Astro.props;
+---
+<div class="max-w-3xl mx-auto space-y-4 prototype-accordion-container">
+  {sampleDays.map((day, index) => (
+    <div class="accordion-item bg-white border border-navy/10 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
+      <button class="accordion-trigger w-full flex items-center justify-between p-6 sm:p-8 bg-white hover:bg-offwhite/50 transition-colors" aria-expanded={index === 0 ? "true" : "false"}>
+        <div class="flex items-center gap-4 sm:gap-8 text-left">
+          <span class="font-display text-3xl sm:text-5xl text-gold/30 font-bold w-10 sm:w-16">0{day.dayNumber}</span>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-navy">
+             {day.title.replace(/^Hari \d+: |^Day \d+: /, '')}
+          </h3>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy shrink-0 accordion-icon transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </button>
+      
+      <div class="accordion-content overflow-hidden transition-all duration-500 ease-in-out" style={index === 0 ? "max-height: 1000px; opacity: 1;" : "max-height: 0px; opacity: 0;"}>
+        <div class="p-6 sm:p-8 pt-0 pl-20 sm:pl-32">
+          <div class="space-y-6">
+            {day.timeBlocks.map((block) => (
+              <div class="border-b border-navy/5 pb-4 last:border-0 last:pb-0">
+                <span class="block font-body text-sm font-bold text-sky mb-2">{block.time}</span>
+                <span class="block font-body text-charcoal/90 leading-relaxed">{block.activity}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  <div class="mt-12 flex flex-col items-center justify-center p-10 bg-gradient-to-br from-offwhite to-white rounded-2xl border border-gold/20 shadow-sm text-center">
+    <h3 class="font-display text-xl text-navy font-bold mb-3">
+      {lang === "en" ? "Travel at Your Own Pace" : "Perjalanan dengan Ritme Anda"}
+    </h3>
+    <p class="text-base font-body text-charcoal/70 max-w-lg mb-8">
+      {lang === "en"
+        ? "Not a fan of rushing? We customize itineraries so you can truly enjoy each destination without the pressure."
+        : "Tidak suka terburu-buru? Kami menyesuaikan jadwal agar Anda dapat benar-benar menikmati setiap tempat."}
+    </p>
+    <WhatsAppCTA
+      label={lang === "en" ? "Customize My Itinerary" : "Kustomisasi Rencana Perjalanan"}
+      message={lang === "en" ? "Hi Yajri Tour, I would like to customize the 4D3N itinerary for a more relaxed pace." : "Halo Yajri Tour, saya ingin menyesuaikan rencana perjalanan 4H3M untuk ritme yang lebih santai."}
+      variant="primary"
+    />
+  </div>
+</div>
+
+<script>
+  // Event delegation approach so it works regardless of prototype switcher display states
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const trigger = target.closest('.accordion-trigger');
+    if (!trigger) return;
+    
+    const container = trigger.closest('.prototype-accordion-container');
+    if (!container) return;
+    
+    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+    
+    // Close all
+    const allTriggers = container.querySelectorAll('.accordion-trigger');
+    allTriggers.forEach(t => {
+       t.setAttribute('aria-expanded', 'false');
+       const tContent = t.nextElementSibling as HTMLElement;
+       const tIcon = t.querySelector('.accordion-icon');
+       if (tContent) {
+         tContent.style.maxHeight = '0px';
+         tContent.style.opacity = '0';
+       }
+       if (tIcon) tIcon.classList.remove('rotate-180');
+    });
+
+    // Toggle current
+    if (!isExpanded) {
+      trigger.setAttribute('aria-expanded', 'true');
+      const content = trigger.nextElementSibling as HTMLElement;
+      const icon = trigger.querySelector('.accordion-icon');
+      if (content) {
+        content.style.maxHeight = content.scrollHeight + 100 + 'px'; // +100 for safety padding
+        content.style.opacity = '1';
+      }
+      if (icon) icon.classList.add('rotate-180');
+    }
+  });
+</script>

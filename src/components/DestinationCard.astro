@@ -1,0 +1,76 @@
+---
+import Badge from "./Badge.astro";
+import WhatsAppCTA from "./WhatsAppCTA.astro";
+
+interface Props {
+  name: string;
+  slug: string;
+  heroImage: string;
+  hook: string;
+  badges: Array<"foreign" | "domestic">;
+  whatsappMessage: string;
+  lang?: string;
+  isPlaceholderHook?: boolean;
+}
+
+const {
+  name,
+  slug,
+  heroImage,
+  hook,
+  badges,
+  whatsappMessage,
+  lang = "id",
+  isPlaceholderHook = false,
+} = Astro.props;
+
+const ctaLabel = lang === "en" ? "Ask Price & Availability" : "Tanya Harga & Jadwal";
+---
+
+<div class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:-translate-y-1 hover:shadow-xl border border-navy/10">
+  {isPlaceholderHook && (
+    <div class="absolute top-3 right-3 z-10 rounded-full bg-gold/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy shadow-sm backdrop-blur-xs">
+      {lang === "en" ? "Content coming soon" : "Segera Hadir"}
+    </div>
+  )}
+
+  <div>
+    <!-- Top Image Container -->
+    <div class="relative h-56 w-full overflow-hidden bg-navy/20">
+      <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-navy/60 to-transparent z-10">
+        <span class="font-display text-xl font-bold text-offwhite drop-shadow-md">{name}</span>
+      </div>
+      <div class="h-full w-full bg-gradient-to-br from-navy/40 to-navy/80 transition-transform duration-500 group-hover:scale-105 flex items-center justify-center text-xs text-offwhite/50">
+        <!-- Photo Placeholder -->
+        <span>Photo: {name}</span>
+      </div>
+    </div>
+
+    <!-- Content Body -->
+    <div class="p-6">
+      <!-- Badges Stack -->
+      <div class="mb-4 flex flex-wrap gap-2">
+        {badges.map((type) => (
+          <Badge type={type} lang={lang} />
+        ))}
+      </div>
+
+      <h3 class="font-display text-xl font-bold text-navy mb-2">
+        {name}
+      </h3>
+
+      <p class="text-sm font-body text-charcoal/80 leading-relaxed mb-6">
+        {hook}
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="px-6 pb-6 pt-0">
+    <WhatsAppCTA
+      label={ctaLabel}
+      message={whatsappMessage}
+      variant="inline"
+    />
+  </div>
+</div>

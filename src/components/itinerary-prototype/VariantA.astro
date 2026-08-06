@@ -1,0 +1,64 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+  sampleDays: { dayNumber: number; title: string; timeBlocks: { time: string; activity: string }[] }[];
+}
+
+const { lang = "id", sampleDays } = Astro.props;
+---
+<div class="max-w-4xl mx-auto">
+  <div class="relative border-l-2 border-gold/30 pl-8 ml-4 md:ml-0 md:pl-0 md:border-none space-y-12">
+    {sampleDays.map((day) => (
+      <div class="relative md:flex md:gap-8 items-start group">
+        <div class="hidden md:flex md:w-32 flex-shrink-0 text-right flex-col justify-start pt-2">
+          <span class="font-display font-bold text-navy text-2xl">{t(lang, "ui.dayLabel")} {day.dayNumber}</span>
+        </div>
+        
+        <div class="absolute -left-[41px] md:static md:left-auto mt-2 md:mt-0 flex-shrink-0 w-8 h-8 rounded-full bg-gold border-4 border-offwhite flex items-center justify-center z-10 md:translate-y-2">
+          <div class="w-2 h-2 rounded-full bg-navy"></div>
+        </div>
+
+        <div class="md:flex-1 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-navy/5 relative md:before:absolute md:before:top-6 md:before:-left-4 md:before:w-0 md:before:h-0 md:before:border-y-8 md:before:border-y-transparent md:before:border-r-8 md:before:border-r-white">
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-navy mb-6">
+            <span class="md:hidden text-gold mr-2">{t(lang, "ui.dayLabel")} {day.dayNumber}:</span>
+            {day.title.replace(/^Hari \d+: |^Day \d+: /, '')}
+          </h3>
+          
+          <div class="space-y-6">
+            {day.timeBlocks.map((block) => (
+              <div class="flex gap-4">
+                <div class="w-16 font-body font-medium text-gold flex-shrink-0">{block.time}</div>
+                <div class="font-body text-charcoal/80 leading-relaxed">{block.activity}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-16 text-center bg-navy p-8 sm:p-12 rounded-2xl text-offwhite shadow-lg overflow-hidden relative">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 bg-sky/5 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4"></div>
+    
+    <div class="relative z-10">
+      <h3 class="font-display text-2xl text-white mb-4">
+        {lang === "en" ? "Prefer a slower pace?" : "Lebih suka ritme santai?"}
+      </h3>
+      <p class="text-sm sm:text-base font-body text-white/80 mb-8 max-w-lg mx-auto">
+        {lang === "en"
+          ? "We specialize in unhurried travel. Adjust the schedule and locations so you can enjoy every moment without rushing."
+          : "Kami ahli dalam perjalanan yang tidak terburu-buru. Sesuaikan jadwal agar Anda dapat menikmati setiap momen."}
+      </p>
+
+      <WhatsAppCTA
+        label={lang === "en" ? "Customize My Itinerary" : "Kustomisasi Rencana Perjalanan"}
+        message={lang === "en" ? "Hi Yajri Tour, I would like to customize the 4D3N Bromo-Tumpak Sewu-Ijen itinerary." : "Halo Yajri Tour, saya ingin menyesuaikan rencana perjalanan 4H3M Bromo-Tumpak Sewu-Ijen."}
+        variant="primary"
+      />
+    </div>
+  </div>
+</div>

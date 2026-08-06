@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "Yajri Tour & Travel — Bromo Ijen Tumpak Sewu Tour East Java",
+    "description": "Private, comfortable, and personalized travel experiences across East Java. Explore Mount Bromo, Ijen Crater, and Tumpak Sewu Waterfall."
+  },
+  "nav": {
+    "story": "Story",
+    "destinations": "Destinations",
+    "itinerary": "Itinerary",
+    "contact": "Contact"
+  },
+  "cta": {
+    "bookNow": "Book Tour",
+    "askPrice": "Ask the Price on WhatsApp",
+    "seeStory": "See the Story",
+    "chatWa": "Chat on WhatsApp"
+  },
+  "ui": {
+    "toggleMenu": "Toggle Menu",
+    "travelerReview": "Traveler review",
+    "photoPlaceholder": "Photo Placeholder",
+    "photo": "Photo",
+    "dayLabel": "Day",
+    "acceptedPayments": "Accepted Payments:",
+    "directBooking": "Direct Booking",
+    "paymentMethods": "Payment Methods",
+    "repliesInMinutes": "Typically replies within",
+    "minutes": "minutes"
+  },
+  "promise": {
+    "quote": "Designed for travelers who prefer a relaxed pace while enjoying every destination without rushing.",
+    "attribution": "— Yajri Promise"
+  },
+  "story": {
+    "bromoSunrise": "Bromo Sunrise",
+    "tumpakSewu": "Tumpak Sewu",
+    "privateFleet": "Private Fleet",
+    "relaxedPace": "Relaxed Pace",
+    "private": "Private",
+    "unrushedPacing": "Unrushed Pacing",
+    "localExpertise": "Local Expertise",
+    "ijenTrekking": "Ijen Blue Fire Trekking",
+    "premiumFleet": "Premium Fleet"
+  }
+}

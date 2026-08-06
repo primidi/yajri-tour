@@ -1,0 +1,109 @@
+---
+interface Props {
+  lang: string;
+  title: string;
+  subtitle: string;
+  faqs: {
+    qId: string;
+    qEn: string;
+    aId: string;
+    aEn: string;
+  }[];
+}
+
+const { lang, title, subtitle, faqs } = Astro.props;
+---
+
+<div class="mx-auto max-w-4xl">
+  <div class="text-center mb-16">
+    <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
+      {title}
+    </h2>
+    <p class="mt-4 text-base sm:text-lg text-charcoal/80 font-body">
+      {subtitle}
+    </p>
+  </div>
+
+  <div class="space-y-4">
+    {faqs.map((faq, index) => (
+      <div class="faq-item-a border border-navy/10 rounded-xl bg-white shadow-xs overflow-hidden transition-all">
+        <button
+          type="button"
+          class="faq-toggle-a flex w-full items-center justify-between p-5 text-left bg-white hover:bg-navy/5 transition-colors focus:outline-none focus:ring-2 focus:ring-gold"
+          aria-expanded={index === 0 ? "true" : "false"}
+        >
+          <h3 class="font-display text-base sm:text-lg font-bold text-navy pr-4">
+            {lang === "en" ? faq.qEn : faq.qId}
+          </h3>
+          <svg
+            class={`faq-chevron-a h-5 w-5 shrink-0 text-navy transition-transform duration-300 ${index === 0 ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class={`faq-content-a px-5 pb-6 pt-2 text-charcoal/80 font-body text-sm sm:text-base border-t border-navy/5 ${index === 0 ? "block" : "hidden"}`}
+        >
+          <p>{lang === "en" ? faq.aEn : faq.aId}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  function setupFaqAccordionA() {
+    const faqButtons = document.querySelectorAll<HTMLButtonElement>(".faq-toggle-a");
+
+    faqButtons.forEach((btn) => {
+      const newBtn = btn.cloneNode(true) as HTMLButtonElement;
+      if (btn.parentNode) {
+        btn.parentNode.replaceChild(newBtn, btn);
+      }
+      
+      newBtn.addEventListener("click", () => {
+        const item = newBtn.closest(".faq-item-a");
+        if (!item) return;
+
+        const content = item.querySelector(".faq-content-a");
+        const chevron = item.querySelector(".faq-chevron-a");
+        const isExpanded = newBtn.getAttribute("aria-expanded") === "true";
+
+        if (isExpanded) {
+          newBtn.setAttribute("aria-expanded", "false");
+          content?.classList.add("hidden");
+          content?.classList.remove("block");
+          chevron?.classList.remove("rotate-180");
+        } else {
+          newBtn.setAttribute("aria-expanded", "true");
+          content?.classList.remove("hidden");
+          content?.classList.add("block");
+          chevron?.classList.add("rotate-180");
+        }
+      });
+    });
+  }
+
+  setupFaqAccordionA();
+  document.addEventListener("astro:page-load", setupFaqAccordionA);
+  
+  const observerA = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "attributes" && mutation.attributeName === "style") {
+        const target = mutation.target as HTMLElement;
+        if (target.style.display !== "none" && target.dataset.variant === "A") {
+          setupFaqAccordionA();
+        }
+      }
+    });
+  });
+  
+  const variantWrapperA = document.querySelector('[data-section="faq"][data-variant="A"]');
+  if (variantWrapperA) {
+    observerA.observe(variantWrapperA, { attributes: true });
+  }
+</script>

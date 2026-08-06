@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import VariantA from "./destinations-prototype/VariantA.astro";
+import VariantB from "./destinations-prototype/VariantB.astro";
+import VariantC from "./destinations-prototype/VariantC.astro";
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+let destinations = await getCollection("destinations");
+
+// DOMAIN RULE: The EN page strictly focuses on the 4D3N Adventure route. Omit Leisure itineraries.
+if (lang === "en") {
+  destinations = destinations.filter(
+    (d) => d.data.slug !== "batu" && d.data.slug !== "pantai-selatan-malang"
+  );
+}
+
+const title = lang === "en" ? "Popular Destinations" : "Destinasi Populer";
+const subtitle =
+  lang === "en"
+    ? "Explore our most requested private tour spots across East Java."
+    : "Jelajahi lokasi tur privat terfavorit kami di Jawa Timur.";
+---
+
+<section id="destinations" class="bg-offwhite py-20 px-4 sm:px-6 lg:px-8 border-t border-navy/5 relative pb-32 group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="destinations" 
+    sectionName="Destinations" 
+    variants={[
+      { id: "A", name: "Grid Layout" },
+      { id: "B", name: "Editorial Asymmetric" },
+      { id: "C", name: "Horizontal Journey" }
+    ]} 
+  />
+
+  <div class="mx-auto max-w-7xl relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="font-display text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
+        {title}
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-charcoal/80 font-body">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- PROTOTYPE VARIANTS -->
+    <div class="prototype-variant" data-section="destinations" data-variant="A" style="display: none;">
+      <VariantA destinations={destinations} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="destinations" data-variant="B" style="display: none;">
+      <VariantB destinations={destinations} lang={lang} />
+    </div>
+    
+    <div class="prototype-variant" data-section="destinations" data-variant="C" style="display: none;">
+      <VariantC destinations={destinations} lang={lang} />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+---
+import Badge from "../Badge.astro";
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+import { t } from "../../i18n/utils";
+
+interface Props {
+  destinations: any[];
+  lang: string;
+}
+
+const { destinations, lang } = Astro.props;
+---
+<div class="max-w-4xl mx-auto flex flex-col gap-4">
+  {destinations.map((item, index) => {
+    const isPlaceholder = item.data.slug === "batu" || item.data.slug === "pantai-selatan-malang";
+    const hook = lang === "en" ? item.data.hookEn : item.data.hookId;
+    const whatsappMessage = lang === "en" ? item.data.whatsappMessageEn : item.data.whatsappMessageId;
+    const ctaLabel = lang === "en" ? "Ask Price & Availability" : "Tanya Harga & Jadwal";
+    
+    return (
+      <details class="group bg-white rounded-xl shadow-sm border border-navy/10 overflow-hidden [&_summary::-webkit-details-marker]:hidden" open={index === 0}>
+        <summary class="flex items-center justify-between p-6 cursor-pointer bg-offwhite hover:bg-gold/10 transition-colors">
+          <div class="flex items-center gap-6">
+            <span class="font-display text-4xl text-sky/40 font-bold w-12 text-center">{index + 1}</span>
+            <h3 class="font-display text-2xl font-bold text-navy">{item.data.name}</h3>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="hidden md:flex gap-2">
+              {item.data.badges.map((type: "foreign" | "domestic") => (
+                <Badge type={type} lang={lang} />
+              ))}
+            </div>
+            <span class="text-navy group-open:rotate-180 transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </span>
+          </div>
+        </summary>
+        <div class="p-6 md:p-8 border-t border-navy/5 flex flex-col md:flex-row gap-8 bg-white">
+           <div class="w-full md:w-1/3 h-48 relative bg-navy/20 rounded-xl overflow-hidden shrink-0">
+             {isPlaceholder && (
+                <div class="absolute top-2 right-2 z-10 rounded-full bg-gold/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-navy shadow-sm">
+                  {lang === "en" ? "Coming soon" : "Segera Hadir"}
+                </div>
+              )}
+              <div class="absolute inset-0 flex items-center justify-center text-xs text-navy/50">
+                {t(lang, "ui.photo")}: {item.data.name}
+              </div>
+           </div>
+           <div class="flex-1 flex flex-col justify-center">
+             <div class="md:hidden flex flex-wrap gap-2 mb-4">
+               {item.data.badges.map((type: "foreign" | "domestic") => (
+                 <Badge type={type} lang={lang} />
+               ))}
+             </div>
+             <p class="text-base font-body text-charcoal/80 leading-relaxed mb-6">
+               {hook}
+             </p>
+             <div>
+               <WhatsAppCTA
+                 label={ctaLabel}
+                 message={whatsappMessage}
+                 variant="inline"
+               />
+             </div>
+           </div>
+        </div>
+      </details>
+    );
+  })}
+</div>
+<script>
+  const details = document.querySelectorAll('details');
+  details.forEach(targetDetail => {
+    targetDetail.addEventListener('click', (e) => {
+      // Allow the default open/close but close others
+      if (!targetDetail.open) {
+        details.forEach(detail => {
+          if (detail !== targetDetail) {
+            detail.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+</script>

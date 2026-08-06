@@ -1,0 +1,60 @@
+---
+export interface TimeBlock {
+  time: string;
+  activity: string;
+}
+
+interface Props {
+  dayNumber: number;
+  title: string;
+  timeBlocks: TimeBlock[];
+  isOpen?: boolean;
+}
+
+const { dayNumber, title, timeBlocks, isOpen = false } = Astro.props;
+---
+
+<div class="itinerary-day border border-navy/10 rounded-xl bg-white shadow-sm overflow-hidden mb-4 transition-all">
+  <button
+    type="button"
+    class="itinerary-toggle flex w-full items-center justify-between p-5 text-left bg-white hover:bg-navy/5 transition-colors focus:outline-none focus:ring-2 focus:ring-gold"
+    aria-expanded={isOpen ? "true" : "false"}
+  >
+    <div class="flex items-center gap-4">
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy text-gold font-display font-bold text-base">
+        D{dayNumber}
+      </span>
+      <h3 class="font-display text-lg sm:text-xl font-bold text-navy">
+        {title}
+      </h3>
+    </div>
+
+    <svg
+      class={`chevron-icon h-5 w-5 text-navy transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <div
+    class={`itinerary-content px-5 pb-6 pt-2 border-t border-navy/5 ${isOpen ? "block" : "hidden"}`}
+  >
+    <div class="relative border-l-2 border-gold/40 ml-4 pl-6 space-y-4 my-2">
+      {timeBlocks.map((block) => (
+        <div class="relative group">
+          <!-- Timeline dot -->
+          <div class="absolute -left-[31px] top-1.5 h-2.5 w-2.5 rounded-full bg-gold ring-4 ring-white"></div>
+          <span class="inline-block text-xs font-bold text-navy/70 bg-navy/5 px-2 py-0.5 rounded font-mono mb-1">
+            {block.time}
+          </span>
+          <p class="text-sm sm:text-base text-charcoal/90 font-body leading-relaxed">
+            {block.activity}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

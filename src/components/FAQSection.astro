@@ -1,0 +1,79 @@
+---
+import SectionSwitcher from "./prototype/SectionSwitcher.astro";
+import VariantA from "./faq-prototype/VariantA.astro";
+import VariantB from "./faq-prototype/VariantB.astro";
+import VariantC from "./faq-prototype/VariantC.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const title = lang === "en" ? "Frequently Asked Questions" : "Pertanyaan Umum (FAQ)";
+const subtitle =
+  lang === "en"
+    ? "Essential travel tips and answers before booking your East Java trip."
+    : "Informasi dan jawaban penting sebelum memesan perjalanan Anda.";
+
+const faqs = [
+  {
+    qId: "Apa saja yang perlu dibawa untuk trekking Kawah Ijen pukul 02:00 pagi?",
+    qEn: "What should I bring for the Ijen Crater trek at 02:00 AM?",
+    aId: "PLACEHOLDER — Disarankan membawa jaket tebal, senter/headlamp, sepatu trekking yang nyaman, air minum, dan masker gas (kami sediakan).",
+    aEn: "PLACEHOLDER — Warm jacket, comfortable trekking shoes, headlamp, and water. Gas mask is provided by us."
+  },
+  {
+    qId: "Seberapa dingin suhu di Gunung Bromo?",
+    qEn: "How cold is the weather at Mount Bromo during sunrise?",
+    aId: "PLACEHOLDER — Suhu di Penanjakan bisa mencapai 5°C - 12°C saat subuh. Wajib membawa jaket hangat, sarung tangan, dan kupluk.",
+    aEn: "PLACEHOLDER — Temperatures can drop to 5°C - 12°C. Bringing a warm coat, gloves, and beanie is highly recommended."
+  },
+  {
+    qId: "Apakah masker gas disediakan untuk fenomena Blue Fire Ijen?",
+    qEn: "Are gas masks provided for the Ijen Blue Fire phenomenon?",
+    aId: "PLACEHOLDER — Ya, kami menyediakan masker respirator standar keselamatan untuk setiap peserta tur.",
+    aEn: "PLACEHOLDER — Yes, standard safety respirator gas masks are provided for all tour participants."
+  },
+  {
+    qId: "Metode pembayaran apa saja yang diterima?",
+    qEn: "What payment methods do you accept?",
+    aId: "PLACEHOLDER — Kami menerima transfer bank lokal, Wise, serta pembayaran tunai saat penjemputan.",
+    aEn: "PLACEHOLDER — Local bank transfers, Wise for international payments, and cash on arrival."
+  },
+  {
+    qId: "Apakah tur ini bisa disesuaikan untuk jumlah peserta kecil atau besar?",
+    qEn: "Can the tour accommodate small or large group sizes?",
+    aId: "PLACEHOLDER — Ya, kami melayani tur privat mulai dari 1-2 orang hingga grup keluarga besar.",
+    aEn: "PLACEHOLDER — Yes, we organize fully private tours from solo/couple travelers up to large groups."
+  }
+];
+---
+
+<section id="faq" class="bg-offwhite py-20 px-4 sm:px-6 lg:px-8 border-t border-navy/5 relative pb-32 group/section">
+  <!-- IN-PLACE SECTION SWITCHER -->
+  <SectionSwitcher 
+    sectionKey="faq" 
+    sectionName="FAQ" 
+    variants={[
+      { id: "A", name: "Accordion" },
+      { id: "B", name: "Split View" },
+      { id: "C", name: "Card Grid" }
+    ]} 
+  />
+
+  <div class="relative z-10">
+    <!-- PROTOTYPE VARIANTS -->
+    <div class="prototype-variant" data-section="faq" data-variant="A" style="display: none;">
+      <VariantA lang={lang} title={title} subtitle={subtitle} faqs={faqs} />
+    </div>
+    
+    <div class="prototype-variant" data-section="faq" data-variant="B" style="display: none;">
+      <VariantB lang={lang} title={title} subtitle={subtitle} faqs={faqs} />
+    </div>
+    
+    <div class="prototype-variant" data-section="faq" data-variant="C" style="display: none;">
+      <VariantC lang={lang} title={title} subtitle={subtitle} faqs={faqs} />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+---
+import WhatsAppCTA from "../WhatsAppCTA.astro";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "id" } = Astro.props;
+
+const headline = lang === "en" ? "Explore East Java" : "Jelajahi Keindahan Jawa Timur";
+const subheadline = lang === "en" 
+  ? "Private, comfortable, and personalized travel experiences to Bromo, Ijen, Tumpak Sewu, and beyond." 
+  : "Pengalaman perjalanan privat, nyaman, dan personal ke Bromo, Ijen, Tumpak Sewu, dan sekitarnya.";
+const ctaLabel = lang === "en" ? "Ask the Price on WhatsApp" : "Tanya Harga via WhatsApp";
+const secondaryLabel = lang === "en" ? "See the Story" : "Lihat Cerita Kami";
+---
+<div class="relative flex flex-col justify-end min-h-[100dvh] w-full bg-navy pb-24 px-4 sm:px-8 lg:px-16 overflow-hidden">
+  <!-- Immersive Background -->
+  <div class="absolute inset-0 bg-[#0a1526]">
+    <div class="absolute inset-0 bg-gradient-to-tr from-[#0a1526] via-[#16355d] to-[#1c1c1c] opacity-60"></div>
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3FA9DC_2px,transparent_2px)] [background-size:48px_48px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-navy/30 via-navy/50 to-navy"></div>
+  </div>
+
+  <!-- Content anchored to bottom -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-12">
+    
+    <div class="max-w-3xl">
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-offwhite tracking-tight leading-[1.05] mb-6">
+        {headline.split(' ').map((word, i) => (
+          <span class={i === headline.split(' ').length - 1 ? "text-gold" : ""}>{word} </span>
+        ))}
+      </h1>
+      <p class="font-body text-xl md:text-2xl text-offwhite/80 max-w-xl font-light">
+        {subheadline}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-6 shrink-0 lg:w-72">
+      <WhatsAppCTA
+        label={ctaLabel}
+        message={lang === "en" ? "Hi Yajri Tour, I'd like to ask for prices for East Java tours." : "Halo Yajri Tour, saya ingin menanyakan harga paket tur Jawa Timur."}
+        variant="primary"
+      />
+      <a href="#story" class="group flex justify-between items-center text-offwhite border-b border-offwhite/20 pb-3 hover:border-gold transition-colors font-body">
+        <span class="uppercase tracking-widest text-sm">{secondaryLabel}</span>
+        <svg class="h-5 w-5 text-gold transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      
+      <!-- Mini Feature List -->
+      <ul class="text-offwhite/60 text-sm font-body space-y-2 mt-4 hidden sm:block">
+        <li class="flex items-center gap-2"><span class="text-sky">✓</span> {lang === "en" ? "Relaxed Pace" : "Kecepatan Santai"}</li>
+        <li class="flex items-center gap-2"><span class="text-sky">✓</span> {lang === "en" ? "Transparent Pricing" : "Harga Transparan"}</li>
+        <li class="flex items-center gap-2"><span class="text-sky">✓</span> {lang === "en" ? "Private Vehicle" : "Kendaraan Pribadi"}</li>
+      </ul>
+    </div>
+  </div>
+</div>
