@@ -53,11 +53,10 @@ const secondaryLabel = lang === "en" ? "See the Story" : "Lihat Cerita Kami";
   </div>
 
   <!-- Right Image Area -->
-  <div class="flex-1 relative min-h-[40vh] lg:min-h-full bg-[#1c1c1c]">
-    <!-- Moody Gradient Placeholder for Photography -->
-    <div class="absolute inset-0 bg-gradient-to-tr from-navy via-[#16355d] to-[#4a5d7c] opacity-80 mix-blend-multiply"></div>
-    <!-- Simple pattern since we want to avoid breaking links but we want a landscape feel -->
-    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F7F7F5_1px,transparent_1px)] [background-size:32px_32px]"></div>
+  <div class="flex-1 relative min-h-[40vh] lg:min-h-full bg-navy overflow-hidden">
+    <img src="/images/hero/hero_bromo_suv.jpg" alt="East Java Private Tour" class="absolute inset-0 w-full h-full object-cover" />
+    <!-- Moody Overlay -->
+    <div class="absolute inset-0 bg-navy/20 mix-blend-multiply"></div>
     
     <!-- Overlay to blend edge -->
     <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent lg:bg-gradient-to-l lg:from-navy/90 lg:via-navy/30"></div>

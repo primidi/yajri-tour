@@ -6,6 +6,7 @@ interface Props {
     type: string;
     capacity: string;
     desc: string;
+    image: string;
   }[];
   lang?: string;
 }
@@ -16,10 +17,8 @@ const { fleetItems, lang = "id" } = Astro.props;
   {fleetItems.map((item, idx) => (
     <div class={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-12 items-center`}>
       <div class="w-full md:w-1/2 aspect-video bg-navy flex items-center justify-center rounded-2xl relative overflow-hidden group">
-        <div class="absolute inset-0 bg-gold/10 group-hover:bg-transparent transition-colors duration-500"></div>
-        <span class="text-sm font-bold text-offwhite/50 uppercase tracking-widest font-body">
-          {t(lang, "ui.photoPlaceholder")}
-        </span>
+        <img src={item.image} alt={item.type} class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-navy/10 group-hover:bg-transparent transition-colors duration-500"></div>
       </div>
       <div class="w-full md:w-1/2 flex flex-col justify-center">
         <div class="flex items-center gap-3 mb-4">

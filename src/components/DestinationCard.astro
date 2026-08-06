@@ -40,10 +40,7 @@ const ctaLabel = lang === "en" ? "Ask Price & Availability" : "Tanya Harga & Jad
       <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-navy/60 to-transparent z-10">
         <span class="font-display text-xl font-bold text-offwhite drop-shadow-md">{name}</span>
       </div>
-      <div class="h-full w-full bg-gradient-to-br from-navy/40 to-navy/80 transition-transform duration-500 group-hover:scale-105 flex items-center justify-center text-xs text-offwhite/50">
-        <!-- Photo Placeholder -->
-        <span>Photo: {name}</span>
-      </div>
+      <img src={heroImage} alt={`${name} scenery`} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
     </div>
 
     <!-- Content Body -->

@@ -14,8 +14,12 @@ const subheadline = lang === "en"
 const ctaLabel = lang === "en" ? "Ask the Price on WhatsApp" : "Tanya Harga via WhatsApp";
 const secondaryLabel = lang === "en" ? "See the Story" : "Lihat Cerita Kami";
 ---
-<div class="relative flex min-h-[100dvh] items-center justify-center bg-navy bg-gradient-to-br from-navy via-[#16355d] to-[#1c1c1c] text-offwhite px-4 py-24 sm:px-6 lg:px-8 w-full">
-  <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#C9A227_1px,transparent_1px)] [background-size:24px_24px]"></div>
+<div class="relative flex min-h-[100dvh] items-center justify-center bg-navy text-offwhite px-4 py-24 sm:px-6 lg:px-8 w-full overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="/images/hero/hero_bromo_suv.jpg" alt="East Java Private Tour" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-navy/40 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent"></div>
+  </div>
 
   <div class="relative z-10 mx-auto max-w-4xl text-center">
     <span class="mb-4 inline-block rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold font-body">

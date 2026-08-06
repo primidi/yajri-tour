@@ -6,6 +6,7 @@ interface Props {
     type: string;
     capacity: string;
     desc: string;
+    image: string;
   }[];
   lang?: string;
 }
@@ -16,10 +17,9 @@ const { fleetItems, lang = "id" } = Astro.props;
   <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-8 -mx-4 px-4 sm:mx-0 sm:px-0">
     {fleetItems.map((item) => (
       <div class="min-w-[85vw] sm:min-w-[400px] max-w-[450px] shrink-0 snap-center bg-navy text-offwhite rounded-3xl overflow-hidden flex flex-col relative group hover:shadow-xl transition-shadow">
-        <div class="aspect-4/3 bg-black/20 flex items-center justify-center relative p-8">
-          <span class="text-xs font-bold text-white/30 uppercase tracking-widest font-body z-10">
-            {t(lang, "ui.photoPlaceholder")}
-          </span>
+        <div class="aspect-4/3 bg-navy flex items-center justify-center relative overflow-hidden">
+          <img src={item.image} alt={item.type} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent z-0"></div>
           <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-navy w-full z-10">
             <div class="inline-block px-3 py-1 bg-gold text-navy font-bold text-xs uppercase tracking-wider rounded font-body mb-2">
               {item.capacity}
